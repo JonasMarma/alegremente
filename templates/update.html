@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>jones</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Bem que eu poderia ter criado algo na outra tela para fazer o update, né?</h1>
+    <p style="text-align: center">Ia ficar dahora uma telinha flutuando, né? Mó chatão fazer isso</p>
+
+    <div class="form">
+        <form action="/update/{{task.id}}" method="POST">
+            <input type="text" name="content" id="content" value="{{task.content}}">
+            <input type="submit" value="Atualizar">
+        </form>
+    </div>
+
+</div>
+{% endblock %}

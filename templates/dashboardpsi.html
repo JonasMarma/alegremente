@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<script>
+
+    function codeAddress() {
+        //["name", "email", "virtual", "crp", "descricao", "telefone", "celular", "whatsapp", "estado", "cidade", "endereco", "maps"];
+
+        var nome = document.getElementById("name");
+        nome.value = "{{ current_user.name }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("email");
+        nome.value = "{{ current_user.email }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("crp");
+        nome.value = "{{ current_user.crp }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("descricao");
+        nome.value = "{{ current_user.descricao }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("telefone");
+        nome.value = "{{ current_user.telefone }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("celular");
+        nome.value = "{{ current_user.celular }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("whatsapp");
+        nome.value = "{{ current_user.whatsapp }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("estado");
+        nome.value = "{{ current_user.estado }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("cidade");
+        nome.value = "{{ current_user.cidade }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("endereco");
+        nome.value = "{{ current_user.endereco }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+
+        var nome = document.getElementById("maps");
+        nome.value = "{{ current_user.maps }}";
+        if (nome.value === "None") {
+            nome.value = ""
+        }
+    }
+
+    window.onload = codeAddress;
+</script>
+
+{% endblock %}
+
+<!--
+    https://www.bootdey.com/snippets/view/profile-with-data-and-skills
+-->
+
+{% block body %}
+<div class="container">
+
+    <br>
+
+    <div class="main-body">
+
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                class="rounded-circle" width="150">
+                            <div class="mt-3">
+                                <h4>{{ current_user.name }}</h4>
+
+                                <button class="btn btn-primary">Alterar Foto</button>
+
+                                <button class="btn btn-primary">Alterar Senha</button>
+
+                                <button class="btn btn-primary">Atualizar Plano</button>
+
+                                <button class="btn btn-primary">Atualizar Forma de Pagamento</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form action="/updateperfilpsi/{{current_user.id}}" method="POST">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Nome Completo</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="name" type="text" id="name" class="form-control" required autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">CRP</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="crp" type="text" id="crp" class="form-control" required autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="email" type="email" id="email" class="form-control" required autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Telefone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="telefone" type="telefone" id="telefone" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Celular</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="celular" type="celular" id="celular" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Whatsapp</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="whatsapp" type="whatsapp" id="whatsapp" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Estado</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="estado" type="estado" id="estado" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Cidade</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="cidade" type="cidade" id="cidade" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Endereço</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="endereco" type="endereco" id="endereco" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Maps</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input name="maps" type="maps" id="maps" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Descrição</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea name="descricao" id="descricao" class="form-control" rows="10"
+                                        required></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Logar">Editar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

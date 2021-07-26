@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="/static/css/precos.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Planos</h1>
+    <p class="lead">Colocar antes alguma coisa para convencer a comprar....</p>
+</div>
+
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Básico</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">R$24,99 <small class="text-muted">/ mês</small></h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-check"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-times"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-times"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-times"></td>
+                            <td>Serviço</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ url_for('cadastro') }}" type="button" class="btn btn-lg btn-block btn-primary">Assinar</a>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Pro</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">R$59,99 <small class="text-muted">/ mês</small></h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-check"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-check"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-times"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-times"></td>
+                            <td>Serviço</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ url_for('cadastro') }}" type="button" class="btn btn-lg btn-block btn-primary">Assinar</a>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Gold</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">R$149,99 <small class="text-muted">/mês</small></h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-check"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-check"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-check"></td>
+                            <td>Serviço</td>
+                        </tr>
+
+                        <tr>
+                            <td><i class="fas fa-check"></td>
+                            <td>Serviço</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ url_for('cadastro') }}" type="button" class="btn btn-lg btn-block btn-primary">Assinar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

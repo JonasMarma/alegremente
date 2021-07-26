@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="/static/css/precos.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<br>
+<form action="/register/" method="POST">
+  <div class="d-flex justify-content-center">
+
+
+    <div class="row">
+
+      <div class="form-group">
+        <label for="inputCRP">Nome</label>
+        <input type="text" class="form-control" name="name" id="inputNome">
+      </div>
+
+      <div class="form-group">
+        <label for="inputCRP">CRP</label>
+        <input type="text" class="form-control" name="crp" id="inputCRP">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Email</label>
+        <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Senha</label>
+        <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Senha">
+      </div>
+    </div>
+
+    <!--
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <label for="inputState">Estado</label>
+        <select id="inputState" class="form-control">
+          <option selected>Escolher...</option>
+          <option>Acre</option>
+          <option>Alagoas</option>
+          <option>Amapá</option>
+          <option>Amazonas</option>
+          <option>Bahia</option>
+          <option>Ceará</option>
+          <option>Espírito Santo</option>
+          <option>Goiás</option>
+          <option>Maranhão</option>
+          <option>Mato Grosso</option>
+          <option>Mato Grosso do Sul</option>
+          <option>Minas Gerais</option>
+          <option>Pará</option>
+          <option>Paraíba</option>
+          <option>Paraná</option>
+          <option>Pernambuco</option>
+          <option>Piauí</option>
+          <option>Rio de Janeiro</option>
+          <option>Rio Grande do Norte</option>
+          <option>Rio Grande do Sul</option>
+          <option>Rondônia</option>
+          <option>Roraima</option>
+          <option>Santa Catarina</option>
+          <option>São Paulo</option>
+          <option>Sergipe</option>
+          <option>Tocantins</option>
+          <option>Distrito Federal</option>
+
+        </select>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputCity">Cidade</label>
+        <input type="text" class="form-control" id="inputCity">
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="inputAddress">Endereço</label>
+      <input type="text" class="form-control" id="inputAddress">
+    </div>
+
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+          Atender virtualmente
+        </label>
+      </div>
+    </div>
+    -->
+
+  </div>
+
+  <br>
+
+  <div class="d-flex justify-content-center">
+    <div class="card-deck mb-3 text-center">
+
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Básico</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">R$24,99</h1>
+            <small class="text-muted">/ mês</small>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><i class="fas fa-check"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-times"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-times"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-times"></td>
+                  <td>Serviço</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <label class="btn btn-primary active">
+              <input type="radio" name="options" id="pro" autocomplete="off" checked> Assinar
+            </label>
+
+          </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Pro</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">R$59,99</h1>
+            <small class="text-muted">/ mês</small>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><i class="fas fa-check"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-check"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-times"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-times"></td>
+                  <td>Serviço</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="pro" autocomplete="off"> Assinar
+            </label>
+
+          </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Gold</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">R$149,99</h1>
+            <small class="text-muted">/ mês</small>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><i class="fas fa-check"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-check"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-check"></td>
+                  <td>Serviço</td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-check"></td>
+                  <td>Serviço</td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="pro" autocomplete="off"> Assinar
+            </label>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!--
+<div class="d-flex justify-content-center">
+  <div class="col-5">
+    <button type="button" class="btn btn-primary btn-lg btn-block">Cadastrar-se</button>
+  </div>
+</div>
+-->
+
+  <input type="submit" value="Cadastrar-se">
+
+</form>
+
+<br>
+
+{% endblock %}

@@ -7,40 +7,28 @@
 
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center">CRUD do jones feito em pyntho - flask :D</h1>
 
-    {% if tasks|length < 1%}
-        <h2 style="text-align: center">Não há nada cadastrado!<h2>
-        <p style="text-align: center">o bicho eh brabo, tem até lógica, viu?</p>
+    <h1>DEBUG</h1>
+
+    {% if usuarios|length < 1%}
+        <p style="text-align: center">NENHUM CADASTRO!</p>
     {% else %}
-        <table>
-            <tr>
-                <th>Dado</th>
-                <th>Dia de criação</th>
-                <th>Hora de criação</th>
-                <th>Ação</th>
-            </tr>
-
-            {% for task in tasks %}
-                <tr>
-                    <td>{{ task.content }}</td>
-                    <td>{{ task.date_created.date() }}</td>
-                    <td>{{ task.date_created.time() }}</td>
-                    <td>
-                        <a href="/delete/{{task.id}}">Apagar</a>
-                        <br>
-                        <a href="/update/{{task.id}}">Atualizar</a>
-                    </td>
-                </tr>
-            {% endfor %}
-
-        </table>
+        {% for usuario in usuarios %}
+            <h3>{{ usuario.name }}</h3>
+            <p>email: {{ usuario.email }}</p>
+            <p>tipo: {{ usuario.tipo }}</p>
+            <p>plano: {{ usuario.plano }}</p>
+            <p>CRP: {{ usuario.crp }}</p>
+            <p>Descricao: {{ usuario.descricao }}</p>
+            <p>telefone: {{ usuario.telefone }}</p>
+            <p>celular: {{ usuario.celular }}</p>
+            <p>whatsapp: {{ usuario.whatsapp }}</p>
+            <p>estado: {{ usuario.estado }}</p>
+            <p>cidade: {{ usuario.cidade }}</p>
+            <p>endereço: {{ usuario.endereco }}</p>
+            <p>maps: {{ usuario.maps }}</p>
+        {% endfor %}
     {% endif %}
-
-    <form action="/" method="POST">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Adicionar">
-    </form>
 
 </div>
 {% endblock %}

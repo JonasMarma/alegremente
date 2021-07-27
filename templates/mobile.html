@@ -1,0 +1,31 @@
+{% extends 'baseapp.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <br>
+
+        <div class="row">
+            <h1>Bem vindo ao AlegreMente!</h1>
+        </div>
+
+        <div class="row">
+            <p>Conte-nos como você está se sentindo!</p>
+        </div>
+
+        <div class="row">
+            <p>É um questionário rápido</p>
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="{{ url_for('mobilequestionario') }}" class="btn btn-primary" role="button">Começar!</a>
+        </div>
+
+    </div>
+
+{% endblock %}

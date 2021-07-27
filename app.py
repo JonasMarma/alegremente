@@ -169,6 +169,17 @@ def delete(id):
         return 'Houve um problema interno ao deletar'
 
 '''
+@app.route('/mobile/')
+def mobile():
+    return render_template('mobile.html')
+
+@app.route('/mobilequestionario/')
+def mobilequestionario():
+    return render_template('mobilequestionario.html')
+
+@app.route('/mobilemenu/')
+def mobilemenu():
+    return render_template('mobilemenu.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

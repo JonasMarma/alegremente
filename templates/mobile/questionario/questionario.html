@@ -1,0 +1,220 @@
+{% extends 'mobile/baseapp.html' %}
+
+{% block head %}
+<link href="/static/css/questionario.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<div id="divquestoes" class="container">
+
+    <div class="wrapper bg-white rounded">
+
+        <div class="content"> <a href="#">
+            <p id="numero" class="text-justify h5 pb-2 font-weight-bold">Pergunta 1/9</p>
+            <p id="enunciado" class="text-justify h5 pb-2 font-weight-bold">Ponto ansiedade A</p>
+
+            <p>DEBUG</p>
+            <p id="debug">/</p>
+
+            <div class="options py-3">
+
+                <label class="rounded p-2 option">
+                    Frequentemente (+3)
+                    <input onclick="selecinou()" id="btn1" type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="rounded p-2 option">
+                    Às vezes (+2)
+                    <input onclick="selecinou()" id="btn2" type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="rounded p-2 option">
+                    Quase nunca (+1)
+                    <input onclick="selecinou()" id="btn3" type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="rounded p-2 option">
+                    Nunca (+0)
+                    <input onclick="selecinou()" id="btn4" type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+
+        <input id="prox" onclick="proxima()" type="submit" value="Próxima" disabled>
+        
+        <input id="ant" onclick="anterior()" type="submit" value="Anterior" class="my-1">
+    </div>
+
+</div>
+
+<div id="divresultado" class="container">
+    <div class="wrapper bg-white rounded">
+
+        <div class="content">
+            <p id="tituloAnsiedade" class="text-justify h5 pb-2 font-weight-bold"><i class="far fa-clock"></i> Ansiedade</p>
+            <p id="textoAnsiedade" class="text-justify">texto</p>
+        </div>
+
+        
+        <div class="content">
+            <p id="tituloEstresse" class="text-justify h5 pb-2 font-weight-bold"><i class="fas fa-fire-alt"></i> Estresse</p>
+            <p id="textoEstresse" class="text-justify">texto</p>
+        </div>
+
+        
+        <div class="content">
+            <p id="tituloDepressao" class="text-justify h5 pb-2 font-weight-bold"><i class="fas fa-frown"></i> Depressao</p>
+            <p id="textoDepressao" class="text-justify">texto</p>
+        </div>
+
+        <form action="/mobilemenu/" method="GET">
+            <div class="col-6">
+                <input type="submit" value="Iniciar">
+            </div>
+        </form>
+
+        <br>
+        
+    </div>
+</div>
+
+<script>
+
+document.getElementById("ant").style.visibility = "hidden";
+document.getElementById("divresultado").style.display = "block";
+
+    const enunciados =["Ponto ansiedade A",
+                        "Ponto ansiedade B",
+                        "Ponto ansiedade C",
+                        "Ponto depressão A",
+                        "ponto depressão B",
+                        "ponto depressão C",
+                        "ponto estresse A",
+                        "ponto estresse B",
+                        "ponto estresse C",
+                    ];
+
+    var pergunta = 0;
+
+    let respostas = [0,0,0,0,0,0,0,0,0];
+
+    function selecinou() {
+        document.getElementById("prox").disabled = false;
+    }
+
+    function anterior() {
+        pergunta--;
+
+        document.getElementById("debug").innerHTML = respostas.toString();
+        
+        var pergunta_disp = pergunta + 1.
+        document.getElementById("numero").innerHTML = "Pergunta " + pergunta_disp + "/9";
+        document.getElementById("enunciado").innerHTML = enunciados[pergunta];
+
+        document.getElementById("prox").disabled = true;
+
+        if (pergunta==0) {
+            document.getElementById("ant").style.visibility = "hidden";
+        }
+    }
+
+    function proxima() {
+
+        var check1 = document.getElementById("btn1").checked;
+        var check2 = document.getElementById("btn2").checked;
+        var check3 = document.getElementById("btn3").checked;
+        var check4 = document.getElementById("btn4").checked;
+
+        document.getElementById("btn1").checked = false;
+        document.getElementById("btn2").checked = false;
+        document.getElementById("btn3").checked = false;
+        document.getElementById("btn4").checked = false;
+
+        var ponto = 0;
+
+        if (check1) {
+            ponto = 3;
+        } else if (check2) {
+            ponto = 2;
+        } else if (check3) {
+            ponto = 1;
+        }
+
+        respostas[pergunta] = ponto;
+        document.getElementById("debug").innerHTML = respostas.toString();
+
+        // Finalizar as perguntas preencher a div de resposta
+        if (pergunta==8) {
+            document.getElementById("divquestoes").style.display = "none";
+            document.getElementById("divresultado").style.display = "block";
+
+            var ansiedade = respostas[0] + respostas[1] + respostas[2];
+            var estresse = respostas[3] + respostas[4] + respostas[5];
+            var depressao = respostas[6] + respostas[7] + respostas[8];
+
+            var relogio = "<i class='far fa-clock'></i> &nbsp;"
+            var fogo = "<i class='fas fa-fire-alt'></i> &nbsp;"
+            var depre = "<i class='fas fa-frown'></i> &nbsp;"
+
+            // ANSIEDADE
+            if (ansiedade < 3) {
+                document.getElementById("tituloAnsiedade").innerHTML = relogio + "Ansiedade - Baixa";
+                document.getElementById("textoAnsiedade").innerHTML = "Texto referente à baixa ansiedade.";
+            }
+            else if (ansiedade < 6) {
+                document.getElementById("tituloAnsiedade").innerHTML = relogio + "Ansiedade - Moderada";
+                document.getElementById("textoAnsiedade").innerHTML = "Texto referente à ansiedade média.";
+            }
+            else {
+                document.getElementById("tituloAnsiedade").innerHTML = relogio + "Ansiedade - Requer atenção";
+                document.getElementById("textoAnsiedade").innerHTML = "Texto referente à alta ansiedade.";
+            }
+            
+            // ESTRESSE
+            if (estresse < 3) {
+                document.getElementById("tituloEstresse").innerHTML = fogo + "Estresse - Baixo";
+                document.getElementById("textoEstresse").innerHTML = "Texto referente a estresse baixo.";
+            }
+            else if (estresse < 6) {
+                document.getElementById("tituloEstresse").innerHTML = fogo + "Estresse - Moderado";
+                document.getElementById("textoEstresse").innerHTML = "Texto referente a estrese médio.";
+            }
+            else {
+                document.getElementById("tituloEstresse").innerHTML = fogo + "Estresse - Requer atenção";
+                document.getElementById("textoEstresse").innerHTML = "Texto referente a alto estresse.";
+            }
+
+            // DEPRESSAO
+            if (depressao < 3) {
+                document.getElementById("tituloDepressao").innerHTML = depre + "Depressão - Baixa";
+                document.getElementById("textoDepressao").innerHTML = "Texto referente à baixa depressao.";
+            }
+            else if (depressao < 6) {
+                document.getElementById("tituloDepressao").innerHTML = depre + "Depressão - Moderada";
+                document.getElementById("textoDepressao").innerHTML = "Texto referente à depressao media.";
+            }
+            else {
+                document.getElementById("tituloDepressao").innerHTML = depre + "Depressão - Requer atenção";
+                document.getElementById("textoDepressao").innerHTML = "Texto referente à alta depressao.";
+            }
+
+        }
+
+        pergunta++;
+
+        var pergunta_disp = pergunta + 1.
+        document.getElementById("numero").innerHTML = "Pergunta " + pergunta_disp + "/9";
+        document.getElementById("enunciado").innerHTML = enunciados[pergunta];
+
+        document.getElementById("prox").disabled = true;
+
+        document.getElementById("ant").style.visibility = "visible";
+    }
+</script>
+
+{% endblock %}

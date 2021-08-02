@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, Response, redirect, make_response
 from flask.wrappers import Request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from flask_login import UserMixin, login_manager, LoginManager, login_user, logout_user
 
 app = Flask(__name__)
@@ -19,7 +20,6 @@ app.config['SECRET_KEY'] = 'secret'
 def get_user(user_id):
     return User.query.filter_by(id=user_id).first()
 
-# Modelo no banco de dados
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(86), nullable=False)
@@ -30,6 +30,10 @@ class User(db.Model, UserMixin):
     
     # Campos do psicólogo:
     #virtual = db.Column(db.Boolean, nullable=True)
+    img = db.Column(db.Text, unique=True, nullable=True)
+    imgname = db.Column(db.Text, nullable=True)
+    mimetype = db.Column(db.Text, nullable=True)
+
     crp = db.Column(db.String(86), nullable=False)
     descricao = db.Column(db.String(500), nullable=True)
     telefone = db.Column(db.String(20), nullable=True)
@@ -55,8 +59,7 @@ class User(db.Model, UserMixin):
 
     # Retornar uma string ao criar um elemento
     def __repr__(self):
-        return '<Task %r>' % self.id
-
+        return '<ID: %r>' % self.id
 
 @app.route('/', methods=['GET'])
 def index():
@@ -72,14 +75,11 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if not user:
-            print('Usuário não encontrado')
             return redirect(url_for('login'))
 
         if  not user.verify_password(pwd):
-            print('Senha incorreta')
             return redirect(url_for('login'))
-
-        print('Logou')
+            
         login_user(user)
 
         if user.tipo == 1:
@@ -148,12 +148,45 @@ def updateperfilpsi(id):
 
         try:
             db.session.commit()
-            return redirect('dashboardpsi.html')
+            #return redirect('dashboardpsi.html')
+            return render_template('dashboardpsi.html')
         except:
             return('Houve um erro ao atualizar ;-;')
 
     else:
         return render_template('update.html', task=task)
+
+@app.route('/uploadimg/<int:id>', methods=['POST'])
+def upload(id):
+    pic = request.files['pic']
+    if not pic:
+        return 'No pic uploaded!', 400
+
+    filename = secure_filename(pic.filename)
+    mimetype = pic.mimetype
+    if not filename or not mimetype:
+        return 'Bad upload!', 400
+
+    #img = Img(img=pic.read(), imgname=filename, mimetype=mimetype)
+
+    user = User.query.get_or_404(id)
+
+    user.img = pic.read()
+    user.imgname = filename
+    user.mimetype = mimetype
+    #db.session.add(img)
+    db.session.commit()
+
+    return render_template('dashboardpsi.html')
+
+@app.route('/image/<int:id>', methods=['GET','POST'])
+def image(id):
+    user = User.query.filter_by(id=id).first()
+    if not user:
+        return 'Img Not Found!', 404
+
+    return Response(user.img, mimetype=user.mimetype)
+
 '''
 # Deletando pela chave primária id
 @app.route('/delete/<int:id>')
@@ -169,17 +202,68 @@ def delete(id):
         return 'Houve um problema interno ao deletar'
 
 '''
+
 @app.route('/mobile/')
 def mobile():
-    return render_template('mobile.html')
+
+    entrou = request.cookies.get('entrou')
+
+    print(str(entrou))
+
+    if (entrou == None):
+        print('Primeira vez')
+        resp = make_response(render_template('mobile/mobile.html'))
+        resp.set_cookie('entrou', "1", expires=2147483647)
+        return resp
+    else:
+        print("Não primeira vez")
+        return redirect(url_for('mobilemenu'))
 
 @app.route('/mobilequestionario/')
 def mobilequestionario():
-    return render_template('mobilequestionario.html')
+    return render_template('mobile/questionario/questionario.html')
 
 @app.route('/mobilemenu/')
 def mobilemenu():
-    return render_template('mobilemenu.html')
+    return render_template('mobile/menu.html')
+
+@app.route('/mobilepesquisapsicologos/' , methods=['GET', 'POST'])
+def psicologos():
+
+    if request.method == 'GET':
+        return render_template('mobile/psicologos/pesquisapsicologos.html')
+
+    if request.method == 'POST':
+        estadoSelect = request.form.get('estado')
+        cidadeSelect = request.form.get('cidade')
+
+        resultadoQuery = db.session.query(User).filter_by(cidade=cidadeSelect)
+
+        return render_template('mobile/psicologos/listapsi.html', cidade=cidadeSelect, resultadoQuery=resultadoQuery)
+
+@app.route('/mobilelistapsi/<string:estadocidade>', methods=['GET', 'POST'])
+def listapsi(cidade, resultadoQuery):
+    if request.method == 'GET':
+        return render_template('mobile/psicologos/listapsi.html')
+    
+    if request.method == 'POST':
+        return render_template('mobile/psicologos/listapsi.html', resultadoQuery=resultadoQuery)
+
+
+@app.route('/mobileverperfil/<int:id>', methods=['GET', 'POST'])
+def verperfil(id):
+    
+    psi = User.query.get_or_404(id)
+
+    return render_template('mobile/psicologos/verperfil.html', psi=psi)
+
+@app.route('/mobilevideos/')
+def videos():
+    return render_template('mobile/videos/videos.html')
+
+@app.route('/mobilevideoscovid/')
+def videoscovid():
+    return render_template('mobile/videos/videoscovid.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

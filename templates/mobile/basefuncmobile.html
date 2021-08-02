@@ -1,0 +1,136 @@
+{% extends 'mobile/baseapp.html' %}
+
+{% block head %}
+<link href="/static/css/questionario.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<!-- Modal Psicólogos -->
+<div class="modal fade" id="modalpsi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <img class="img-fluid" src="/static/bannerpsi.png" alt="Banner">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <a type="button" class="btn btn-warning" href="/mobilepremium/">Não mostrar mais</a>
+                <a type="button" class="btn btn-success" href="/mobilepesquisapsicologos/">Ver psicólogos</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal de parceiro -->
+<div class="modal fade" id="modalparceiro1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <img class="img-fluid" src="/static/logo-grande.png" alt="Banner">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <a type="button" class="btn btn-warning" href="/mobilepremium/">Não mostrar mais</a>
+                <a type="button" class="btn btn-success" href="/mobilepesquisapsicologos/">Ver psicólogos</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        r = Math.random();
+
+        if (r > 0.5) {
+
+            const banners = ["#modalpsi", "#modalparceiro1"];
+
+            const random = Math.floor(Math.random() * banners.length);
+
+            alert(banners[random]);
+
+            $(banners[random]).modal('toggle');
+        }
+    });
+</script>
+
+<div class="container">
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-6">
+            <form action="/mobilepesquisapsicologos/" method="GET">
+                <input type="submit" value="Ver Psicólogos">
+            </form>
+        </div>
+
+        <div class="col-6">
+            <form action="/mobilepremium/" method="GET">
+                <input type="submit" value="Modo Premium">
+            </form>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-12">
+            <input onclick="goBack()" type="submit" value="Voltar">
+        </div>
+    </div>
+
+    {% block container %}{% endblock %}
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-6">
+            <form action="/mobilepesquisapsicologos/" method="GET">
+                <input type="submit" value="Ver Psicólogos">
+            </form>
+        </div>
+
+        <div class="col-6">
+            <form action="/mobilepremium/" method="GET">
+                <input type="submit" value="Modo Premium">
+            </form>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-12">
+            <input onclick="goBack()" type="submit" value="Voltar">
+        </div>
+    </div>
+
+    <br>
+
+</div>
+
+<script>
+
+    function goBack() {
+      window.history.back();
+    }
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'mobile/baseapp.html' %}
+
+{% block head %}
+<link href="/static/css/questionario.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h3>Psicólogos em {{cidade}}</h3>
+
+    <form action="/mobilepesquisapsicologos/" method="GET">
+        <div class="col-12">
+            <input type="submit" value="Voltar">
+        </div>
+    </form>
+
+    <br>
+
+    {% for psi in resultadoQuery %}
+
+    <div class="card" style="max-width: 500px;">
+        <div class="row no-gutters">
+            <div class="col-3">
+                {% if current_user.img %}
+                <img src="/image/{{current_user.id}}" alt="Foto de Perfil"
+                    class="rounded-circle" width="100">
+                {% else %}
+                    <img src="/static/semfoto.png" alt="Foto de Perfil"
+                    class="rounded-circle" width="100">
+                {% endif %}
+            </div>
+            <div class="col-9">
+                <div class="card-body">
+                    <h4 class="card-title">{{psi.name}}</h4>
+                    <p>{{psi.descricao|truncate(50)}}</p>
+                    <a href="/mobileverperfil/{{psi.id}}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

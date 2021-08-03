@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h1>Tela dos psicologos</h1>
+
+    <form action="/psicologos/" method="POST">
+
+        <label for="estado">Estado:</label>
+        <select onchange="clickestado()" id="estado" name="estado">
+            <option value="SP">São Paulo</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="BA">Bahia</option>
+        </select>
+
+        <label for="cidade">Cidade:</label>
+        <select id="cidade" name="cidade">
+        </select>
+
+        <div class="row mt-3">
+
+            <div class="col-12">
+                <input type="submit" value="Procurar">
+            </div>
+        </div>
+    </form>
+
+    <br>
+
+    <form action="/" method="GET">
+        <div class="row">
+
+            <div class="col-12">
+                <input type="submit" value="Voltar">
+            </div>
+        </div>
+    </form>
+
+</div>
+
+</div>
+
+<script>
+    //document.getElementById("cidade").disabled = true;
+    clickestado();
+
+    function clickestado() {
+        var selectEstado = document.getElementById('estado');
+        var estado = selectEstado.options[selectEstado.selectedIndex].value;
+
+        var sCidade = document.getElementById('cidade');
+
+        switch (estado) {
+            case "SP":
+                sCidade.innerHTML = "";
+                sCidade.innerHTML = sCidade.innerHTML + "<option value='São Paulo'>São Paulo</option>";
+                sCidade.innerHTML = sCidade.innerHTML + "<option value='Santo André'>Santo André</option>";
+                sCidade.innerHTML = sCidade.innerHTML + "<option value='Sorocaba'>Sorocaba</option>";
+                break;
+
+            case "RJ":
+                sCidade.innerHTML = "";
+                sCidade.innerHTML = sCidade.innerHTML + "<option value='Rio de Janeiro'>Rio de Janeiro</option>";
+                sCidade.innerHTML = sCidade.innerHTML + "<option value='Cabo Frio'>Cabo Frio</option>";
+                break;
+
+            case "BA":
+                sCidade.innerHTML = "";
+                sCidade.innerHTML = sCidade.innerHTML + "<option value='Salvador'>Salvador</option>";
+                sCidade.innerHTML = sCidade.innerHTML + "<option value='Ilhéus'>Ilhéus</option>";
+                break;
+
+            default:
+                alert('Estado inválido!');
+        }
+    }
+
+    /*
+    function clickcidade(){
+        alert('cidade')
+    }
+    */
+</script>
+
+{% endblock %}

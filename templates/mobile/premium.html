@@ -10,12 +10,15 @@
         <br>
 
         <div class="row">
-            <img class="img-fluid" src="/static/mobiletelainicial.jpg" alt="Banner">
+            <img class="img-fluid" src="/static/premium.gif" alt="Banner">
         </div>
 
         <div class="row">
             <div class="col-12">
-                <input onclick="window.location.href = {{url_for('mobilequestionario')}};" type="submit" value="Começar">
+                <input onclick="window.open(
+                    '/pagamentopremium/',
+                    '_blank' // <- This is what makes it open in a new window.
+                  );" type="submit" value="Assinar">
             </div>
         </div>
 
@@ -23,7 +26,7 @@
 
         <div class="row">
             <div class="col-12">
-                <input onclick="window.location.href = {{url_for('mobilemenu')}};" type="submit" value="Pular">
+                <input onclick="goBack()" type="submit" value="Voltar">
             </div>
         </div>
 

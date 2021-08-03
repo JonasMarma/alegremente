@@ -228,7 +228,7 @@ def mobilemenu():
     return render_template('mobile/menu.html')
 
 @app.route('/mobilepesquisapsicologos/' , methods=['GET', 'POST'])
-def psicologos():
+def mobilepsicologos():
 
     if request.method == 'GET':
         return render_template('mobile/psicologos/pesquisapsicologos.html')
@@ -242,7 +242,7 @@ def psicologos():
         return render_template('mobile/psicologos/listapsi.html', cidade=cidadeSelect, resultadoQuery=resultadoQuery)
 
 @app.route('/mobilelistapsi/<string:estadocidade>', methods=['GET', 'POST'])
-def listapsi(cidade, resultadoQuery):
+def mobilelistapsi(cidade, resultadoQuery):
     if request.method == 'GET':
         return render_template('mobile/psicologos/listapsi.html')
     
@@ -251,19 +251,144 @@ def listapsi(cidade, resultadoQuery):
 
 
 @app.route('/mobileverperfil/<int:id>', methods=['GET', 'POST'])
-def verperfil(id):
+def mobileverperfil(id):
     
     psi = User.query.get_or_404(id)
 
     return render_template('mobile/psicologos/verperfil.html', psi=psi)
 
+@app.route('/mobileblogs/')
+def mobileblogs():
+    return render_template('mobile/blogs.html')
+
+# VIDEOS MOBILE
 @app.route('/mobilevideos/')
-def videos():
+def mobilevideos():
     return render_template('mobile/videos/videos.html')
 
 @app.route('/mobilevideoscovid/')
-def videoscovid():
+def mobilevideoscovid():
     return render_template('mobile/videos/videoscovid.html')
+
+@app.route('/mobilevideossocial/')
+def mobilevideossocial():
+    return render_template('mobile/videos/videossocial.html')
+
+@app.route('/mobilevideosmente/')
+def mobilevideosmente():
+    return render_template('mobile/videos/videosmente.html')
+
+@app.route('/mobilevideossaude/')
+def mobilevideossaude():
+    return render_template('mobile/videos/videossaude.html')
+
+@app.route('/mobilevideosdepressao/')
+def mobilevideosdepressao():
+    return render_template('mobile/videos/videosdepressao.html')
+
+@app.route('/mobilevideosansiedade/')
+def mobilevideosansiedade():
+    return render_template('mobile/videos/videosansiedade.html')
+
+@app.route('/mobilevideosdrogas/')
+def mobilevideosdrogas():
+    return render_template('mobile/videos/videosdrogas.html')
+
+@app.route('/mobilerespiracao/')
+def mobilerespiracao():
+    return render_template('mobile/respiracao.html')
+
+@app.route('/premium/')
+def premium():
+    return render_template('mobile/premium.html')
+
+# ------- SITE ----------
+
+@app.route('/respiracao/')
+def respiracao():
+    return render_template('respiracao.html')
+
+@app.route('/landingpageapp/')
+def landingpageapp():
+    return render_template('landingpageapp.html')
+
+
+@app.route('/blogs/')
+def blogs():
+    return render_template('blogs.html')
+
+@app.route('/database/')
+def database():
+    return render_template('database.html')
+
+# VÍDEOS SITE
+@app.route('/videos/')
+def videos():
+    return render_template('videos/videos.html')
+
+@app.route('/videoscovid/')
+def videoscovid():
+    return render_template('videos/videoscovid.html')
+
+@app.route('/videossocial/')
+def videossocial():
+    return render_template('videos/videossocial.html')
+
+@app.route('/videosmente/')
+def videosmente():
+    return render_template('videos/videosmente.html')
+
+@app.route('/videossaude/')
+def videossaude():
+    return render_template('videos/videossaude.html')
+
+@app.route('/videosdepressao/')
+def videosdepressao():
+    return render_template('videos/videosdepressao.html')
+
+@app.route('/videosansiedade/')
+def videosansiedade():
+    return render_template('videos/videosansiedade.html')
+
+@app.route('/videosdrogas/')
+def videosdrogas():
+    return render_template('videos/videosdrogas.html')
+
+
+@app.route('/pagamentopremium/')
+def pagamentopremium():
+    return render_template('pagamentopremium.html')
+
+# Pesquisa sobre os psicólogos
+@app.route('/psicologos/' , methods=['GET', 'POST'])
+def psicologos():
+
+    if request.method == 'GET':
+        return render_template('psicologos/pesquisapsicologos.html')
+
+    if request.method == 'POST':
+        estadoSelect = request.form.get('estado')
+        cidadeSelect = request.form.get('cidade')
+
+        resultadoQuery = db.session.query(User).filter_by(cidade=cidadeSelect)
+
+        return render_template('psicologos/listapsi.html', cidade=cidadeSelect, resultadoQuery=resultadoQuery)
+
+@app.route('/listapsi/<string:estadocidade>', methods=['GET', 'POST'])
+def listapsi(cidade, resultadoQuery):
+    if request.method == 'GET':
+        return render_template('mobile/psicologos/listapsi.html')
+    
+    if request.method == 'POST':
+        return render_template('psicologos/listapsi.html', resultadoQuery=resultadoQuery)
+
+
+@app.route('/verperfil/<int:id>', methods=['GET', 'POST'])
+def verperfil(id):
+    
+    psi = User.query.get_or_404(id)
+
+    return render_template('psicologos/verperfil.html', psi=psi)
 
 if __name__ == "__main__":
     app.run(debug=True)

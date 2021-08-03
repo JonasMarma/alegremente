@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <br>
+
+    <div class="row no-gutters">
+
+        <div class="col-3">
+            {% if current_user.img %}
+            <img src="/image/{{current_user.id}}" alt="Foto de Perfil"
+                class="rounded-circle" width="150">
+            {% else %}
+                <img src="/static/semfoto.png" alt="Foto de Perfil"
+                class="rounded-circle" width="150">
+            {% endif %}
+        </div>
+
+        <div class="col-9">
+            <div class="row no-gutters">
+                <h4>{{ psi.name }}</h4>
+            </div>
+
+            <div class="row no-gutters">
+                <h6>CRP: {{ psi.crp }}</h6>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if psi.descricao %}
+    <h4>Descrição</h4>
+
+    <p>{{ psi.descricao }}</p>
+    {% endif %}
+
+    <h4>Contato:</h4>
+
+
+    {% if current_user.telefone %}
+    <h5>{{ psi.telefone }}</h5>
+    {% endif %}
+
+    {% if current_user.celular %}
+    <h5>{{ psi.celular }}</h5>
+    {% endif %}
+
+    <h5>{{ psi.email }}</h5>
+
+    {% if psi.whatsapp %}
+    <a href="https://wa.me/{{ psi.whatsapp }}"
+        ?text=Olá!%20vi%20seu%20anúncio%20no%20AlegreMente%20e%20tenho%20interesse%20em%20marcar%20uma%20conversa"
+        target="_blank" class="btn btn-success">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp"
+            viewBox="0 0 16 16">
+            <path
+                d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+        </svg>
+        Enviar uma mensagem
+    </a>
+    {% endif %}
+
+    {% if psi.endereco %}
+    <h4>Endereço:</h4>
+    <h5>{{ psi.endereco }}</h5>
+    {% endif %}
+
+
+    
+    <div id="mapa">
+        {% if psi.maps %}
+        mapa
+        {% endif %}
+    </div>
+
+    <a href="#" onclick="goBack()" type="button" class="btn btn-primary">Voltar para a lista</a>
+
+    <h2></h2>
+
+</div>
+
+<script>
+
+    function goBack() {
+      window.history.back();
+    }
+
+    var mapa = '{{psi.maps}}';
+    mapa = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d914.6193507315711!2d-47.457765370790455!3d-23.515325769313446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c58a850a2b8f63%3A0xe861daa17facdb63!2sR.%20Braz%20Laino%20-%20Jardim%20Emilia%2C%20Sorocaba%20-%20SP%2C%2018031-030!5e0!3m2!1sen!2sbr!4v1627844717651!5m2!1sen!2sbr";
+
+    if (document.getElementById("mapa").innerText==="mapa") {
+        document.getElementById("mapa").innerHTML = "<iframe src='" + mapa +  "width='400' height='300' style='border:0;' loading='lazy'></iframe>";
+    }
+
+</script>
+
+
+{% endblock %}

@@ -1,7 +1,6 @@
-{% extends 'mobile/baseapp.html' %}
+{% extends 'base.html' %}
 
 {% block head %}
-<link href="/static/css/questionario.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -10,7 +9,7 @@
 
     <h3>Psicólogos em {{cidade}}</h3>
 
-    <form action="/mobilepesquisapsicologos/" method="GET">
+    <form action="/pesquisapsicologos/" method="GET">
         <div class="col-12">
             <input type="submit" value="Voltar">
         </div>
@@ -35,7 +34,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{psi.name}}</h4>
                     <p>{{psi.descricao|truncate(50)}}</p>
-                    <a href="/mobileverperfil/{{psi.id}}" class="stretched-link"></a>
+                    <a href="/verperfil/{{psi.id}}" class="stretched-link"></a>
                 </div>
             </div>
         </div>

@@ -7,11 +7,15 @@
 
 <div class="container">
 
+    <br>
+
     <h3>Psicólogos em {{cidade}}</h3>
+
+    <br>
 
     <form action="/pesquisapsicologos/" method="GET">
         <div class="col-12">
-            <input type="submit" value="Voltar">
+            <a href="#" onclick="goBack()" type="button" class="btn btn-primary btn-lg">Escolher outro lugar</a>
         </div>
     </form>
 
@@ -19,13 +23,15 @@
 
     {% for psi in resultadoQuery %}
 
-    <div class="card" style="max-width: 500px;">
+    <div class="card">
         <div class="row no-gutters">
             <div class="col-3">
                 {% if psi.img %}
-                <img src="/image/{{psi.id}}" alt="Foto de Perfil"
+                    <br>
+                    <img src="/image/{{psi.id}}" alt="Foto de Perfil"
                     class="rounded-circle" width="100">
                 {% else %}
+                    <br>
                     <img src="/static/semfoto.png" alt="Foto de Perfil"
                     class="rounded-circle" width="100">
                 {% endif %}
@@ -33,7 +39,7 @@
             <div class="col-9">
                 <div class="card-body">
                     <h4 class="card-title">{{psi.name}}</h4>
-                    <p>{{psi.descricao|truncate(50)}}</p>
+                    <p align="justify">{{psi.descricao|truncate(200)}}</p>
                     <a href="/verperfil/{{psi.id}}" class="stretched-link"></a>
                 </div>
             </div>
@@ -46,5 +52,14 @@
 
 
 </div>
+
+<script>
+
+    function goBack() {
+      window.history.back();
+    }
+
+</script>
+
 
 {% endblock %}

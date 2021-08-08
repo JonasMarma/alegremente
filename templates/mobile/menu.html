@@ -7,8 +7,24 @@
 {% block body %}
 
 <div class="container">
-    
+
     <div id="" class="container">
+
+        <br>
+
+        {% if current_user.is_authenticated %}
+            {% if current_user.tipo == 0 %}
+                <h4>Olá, {{current_user.name}}!</h4>
+            {% endif %}
+        {% else %}
+        <div class="row">
+            <div class="col-12">
+                <form action="/loginusu/" method="GET">
+                    <input type="submit" value="Fazer Login">
+                </form>
+            </div>
+        </div>
+        
 
         <br>
 
@@ -27,6 +43,8 @@
                 </div>
             </div>
         </div>
+
+        {% endif %}
 
         <br>
 
@@ -74,7 +92,7 @@
                     </div>
                     <div class="col-9">
                         <div class="card-body">
-                            <h4 class="card-title">Respiração e Meditação</h4>
+                            <h4 class="card-title">Respiração</h4>
                             <a href="/mobilerespiracao/" class="stretched-link"></a>
                         </div>
                     </div>
@@ -92,7 +110,7 @@
                     </div>
                     <div class="col-9">
                         <div class="card-body">
-                            <h4 class="card-title">Autoconhecimento</h4>
+                            <h5 class="card-title">Autoconhecimento</h5>
                             <a href="/mobileblogs/" class="stretched-link"></a>
                         </div>
                     </div>
@@ -110,13 +128,27 @@
                     </div>
                     <div class="col-9">
                         <div class="card-body">
-                            <h4 class="card-title">Questionário</h4>
+                            <h5 class="card-title">Questionário</h5>
                             <a href="/mobilequestionario/" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <br>
+
+        {% if current_user.is_authenticated %}
+        {% if current_user.tipo == 0 %}
+            <div class="row">
+                <div class="col-12">
+                    <form action="/logoutusu/" method="GET">
+                        <input type="submit" value="Sair">
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+        {% endif %}
 
         <br>
 

@@ -1,0 +1,40 @@
+{% extends 'mobile/baseapp.html' %}
+
+{% block head %}
+<link href="/static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<form class="form-signin" action="/loginusu/" method="post">
+
+    <img class="mb-4" src="/static/logo-grande.png" alt="" width="200" height="200">
+
+    <h1 class="h3 mb-3 font-weight-normal">Login - Premium</h1>
+    
+    <label for="inputEmail" class="sr-only" name="email">Endereço de email</label>
+    <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Endereço de email" required autofocus>
+    
+    <label for="inputPassword" class="sr-only" name="password">Senha</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+    
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Lembre de mim!
+        </label>
+    </div>
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Logar">Entrar</button>
+
+    <button  onclick="goBack()" class="btn btn-lg btn-primary btn-block" type="submit" value="Logar">Voltar</button>
+    
+    <p class="mt-5 mb-3 text-muted">&copy; Grupo AM 2021</p>
+</form>
+
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>
+
+{% endblock %}

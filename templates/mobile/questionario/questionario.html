@@ -12,33 +12,30 @@
 
         <div class="content"> <a href="#">
             <p id="numero" class="text-justify h5 pb-2 font-weight-bold">Pergunta 1/9</p>
-            <p id="enunciado" class="text-justify h5 pb-2 font-weight-bold">Ponto ansiedade A</p>
-
-            <p>DEBUG</p>
-            <p id="debug">/</p>
+            <p id="enunciado" class="text-justify h5 pb-2 font-weight-bold">Com que frequência você acha difícil se acalmar?</p>
 
             <div class="options py-3">
 
                 <label class="rounded p-2 option">
-                    Frequentemente (+3)
+                    Frequentemente
                     <input onclick="selecinou()" id="btn1" type="radio" name="radio">
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="rounded p-2 option">
-                    Às vezes (+2)
+                    Às vezes
                     <input onclick="selecinou()" id="btn2" type="radio" name="radio">
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="rounded p-2 option">
-                    Quase nunca (+1)
+                    Quase nunca
                     <input onclick="selecinou()" id="btn3" type="radio" name="radio">
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="rounded p-2 option">
-                    Nunca (+0)
+                    Nunca
                     <input onclick="selecinou()" id="btn4" type="radio" name="radio">
                     <span class="checkmark"></span>
                 </label>
@@ -74,7 +71,7 @@
 
         <form action="/mobilemenu/" method="GET">
             <div class="col-6">
-                <input type="submit" value="Iniciar">
+                <input type="submit" value="Ir para o menu principal">
             </div>
         </form>
 
@@ -86,17 +83,17 @@
 <script>
 
 document.getElementById("ant").style.visibility = "hidden";
-document.getElementById("divresultado").style.display = "block";
+document.getElementById("divresultado").style.display = "none";
 
-    const enunciados =["Ponto ansiedade A",
-                        "Ponto ansiedade B",
-                        "Ponto ansiedade C",
-                        "Ponto depressão A",
-                        "ponto depressão B",
-                        "ponto depressão C",
-                        "ponto estresse A",
-                        "ponto estresse B",
-                        "ponto estresse C",
+    const enunciados =["-",
+                        "Com que frequência você sentiu que entraria em pânico?",
+                        "Com que frequência você sente medo em motivo algum?",
+                        "Com que frequência você sente que não tem nada a desejar?",
+                        "Com que frequência você sente que consegue vivenciar nenhum sentimento positivo?",
+                        "Com que frequência você não consegue se entusiasmar com nada?",
+                        "Com que frequência você não consegue se relaxar ao se deitar para dormir?",
+                        "Com que frequência foi intolerante com as coisas que me impediam de continuar o que eu estava fazendo?",
+                        "Com que frequência você sente que não tem controle sobre mudanças importantes em sua vida?",
                     ];
 
     var pergunta = 0;
@@ -109,8 +106,6 @@ document.getElementById("divresultado").style.display = "block";
 
     function anterior() {
         pergunta--;
-
-        document.getElementById("debug").innerHTML = respostas.toString();
         
         var pergunta_disp = pergunta + 1.
         document.getElementById("numero").innerHTML = "Pergunta " + pergunta_disp + "/9";
@@ -146,7 +141,6 @@ document.getElementById("divresultado").style.display = "block";
         }
 
         respostas[pergunta] = ponto;
-        document.getElementById("debug").innerHTML = respostas.toString();
 
         // Finalizar as perguntas preencher a div de resposta
         if (pergunta==8) {
@@ -162,45 +156,45 @@ document.getElementById("divresultado").style.display = "block";
             var depre = "<i class='fas fa-frown'></i> &nbsp;"
 
             // ANSIEDADE
-            if (ansiedade < 3) {
+            if (ansiedade <= 3) {
                 document.getElementById("tituloAnsiedade").innerHTML = relogio + "Ansiedade - Baixa";
-                document.getElementById("textoAnsiedade").innerHTML = "Texto referente à baixa ansiedade.";
+                document.getElementById("textoAnsiedade").innerHTML = "Ansiedade significa sentir-se preocupado, com medo ou nervoso. É natural ficar ansioso - mas se os sentimentos não vão embora, piorem ou não tenham uma causa específica, eles podem ser um problema.";
             }
-            else if (ansiedade < 6) {
+            else if (ansiedade <= 6) {
                 document.getElementById("tituloAnsiedade").innerHTML = relogio + "Ansiedade - Moderada";
-                document.getElementById("textoAnsiedade").innerHTML = "Texto referente à ansiedade média.";
+                document.getElementById("textoAnsiedade").innerHTML = "Ansiedade significa sentir-se preocupado, com medo ou nervoso. É natural ficar ansioso - mas se os sentimentos não vão embora, piorem ou não tenham uma causa específica, eles podem ser um problema.";
             }
             else {
                 document.getElementById("tituloAnsiedade").innerHTML = relogio + "Ansiedade - Requer atenção";
-                document.getElementById("textoAnsiedade").innerHTML = "Texto referente à alta ansiedade.";
+                document.getElementById("textoAnsiedade").innerHTML = "Ansiedade significa sentir-se preocupado, com medo ou nervoso. É natural ficar ansioso - mas se os sentimentos não vão embora, piorem ou não tenham uma causa específica, eles podem ser um problema.";
             }
             
             // ESTRESSE
-            if (estresse < 3) {
+            if (estresse <= 3) {
                 document.getElementById("tituloEstresse").innerHTML = fogo + "Estresse - Baixo";
-                document.getElementById("textoEstresse").innerHTML = "Texto referente a estresse baixo.";
+                document.getElementById("textoEstresse").innerHTML = "O estresse faz você se sentir como se estivesse sofrendo muita pressão mental ou emocional. Afeta a todos nós, mas se você está sob estresse por longos períodos, sua saúde pode ser prejudicada.";
             }
-            else if (estresse < 6) {
+            else if (estresse <= 6) {
                 document.getElementById("tituloEstresse").innerHTML = fogo + "Estresse - Moderado";
-                document.getElementById("textoEstresse").innerHTML = "Texto referente a estrese médio.";
+                document.getElementById("textoEstresse").innerHTML = "O estresse faz você se sentir como se estivesse sofrendo muita pressão mental ou emocional. Afeta a todos nós, mas se você está sob estresse por longos períodos, sua saúde pode ser prejudicada.";
             }
             else {
                 document.getElementById("tituloEstresse").innerHTML = fogo + "Estresse - Requer atenção";
-                document.getElementById("textoEstresse").innerHTML = "Texto referente a alto estresse.";
+                document.getElementById("textoEstresse").innerHTML = "O estresse faz você se sentir como se estivesse sofrendo muita pressão mental ou emocional. Afeta a todos nós, mas se você está sob estresse por longos períodos, sua saúde pode ser prejudicada.";
             }
 
             // DEPRESSAO
-            if (depressao < 3) {
+            if (depressao <= 3) {
                 document.getElementById("tituloDepressao").innerHTML = depre + "Depressão - Baixa";
-                document.getElementById("textoDepressao").innerHTML = "Texto referente à baixa depressao.";
+                document.getElementById("textoDepressao").innerHTML = "Depressão é um transtorno relacionado ao humor. Todos nos sentimos um pouco para baixo às vezes, mas quando esses sentimentos persistem e afetam o cotidiano é necessário investigar o que está acontecendo.";
             }
-            else if (depressao < 6) {
+            else if (depressao <= 6) {
                 document.getElementById("tituloDepressao").innerHTML = depre + "Depressão - Moderada";
-                document.getElementById("textoDepressao").innerHTML = "Texto referente à depressao media.";
+                document.getElementById("textoDepressao").innerHTML = "Depressão é um transtorno relacionado ao humor. Todos nos sentimos um pouco para baixo às vezes, mas quando esses sentimentos persistem e afetam o cotidiano é necessário investigar o que está acontecendo.";
             }
             else {
                 document.getElementById("tituloDepressao").innerHTML = depre + "Depressão - Requer atenção";
-                document.getElementById("textoDepressao").innerHTML = "Texto referente à alta depressao.";
+                document.getElementById("textoDepressao").innerHTML = "Depressão é um transtorno relacionado ao humor. Todos nos sentimos um pouco para baixo às vezes, mas quando esses sentimentos persistem e afetam o cotidiano é necessário investigar o que está acontecendo.";
             }
 
         }

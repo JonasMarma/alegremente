@@ -18,7 +18,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <a type="button" class="btn btn-warning" href="/mobilepremium/">Não mostrar mais</a>
+                <a type="button" class="btn btn-warning" href="/premium/">Não mostrar mais</a>
                 <a type="button" class="btn btn-success" href="/mobilepesquisapsicologos/">Ver psicólogos</a>
             </div>
 
@@ -38,7 +38,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <a type="button" class="btn btn-warning" href="/mobilepremium/">Não mostrar mais</a>
+                <a type="button" class="btn btn-warning" href="/premium/">Não mostrar mais</a>
                 <a type="button" class="btn btn-success" href="/mobilepesquisapsicologos/">Ver psicólogos</a>
             </div>
 
@@ -46,6 +46,9 @@
     </div>
 </div>
 
+{% if current_user.is_authenticated %}
+
+{% else %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
@@ -63,7 +66,14 @@
     });
 </script>
 
+{% endif %}
+
+
 <div class="container">
+
+    {% if current_user.is_authenticated %}
+
+    {% else %}
 
     <br>
 
@@ -83,11 +93,15 @@
 
     </div>
 
+    {% endif %}
+
     <br>
 
     <div class="row">
         <div class="col-12">
-            <input onclick="goBack()" type="submit" value="Voltar">
+            <form action="/mobilemenu/" method="GET">
+                <input type="submit" value="Voltar">
+            </form>
         </div>
     </div>
 
@@ -95,6 +109,10 @@
 
     <br>
 
+    {% if current_user.is_authenticated %}
+
+    {% else %}
+
     <div class="row">
 
         <div class="col-6">
@@ -113,9 +131,13 @@
 
     <br>
 
+    {% endif %}
+
     <div class="row">
         <div class="col-12">
-            <input onclick="goBack()" type="submit" value="Voltar">
+            <form action="/mobilemenu/" method="GET">
+                <input type="submit" value="Voltar">
+            </form>
         </div>
     </div>
 

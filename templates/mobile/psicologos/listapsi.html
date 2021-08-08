@@ -8,7 +8,11 @@
 
 <div class="container">
 
+    <br>
+
     <h3>Psicólogos em {{cidade}}</h3>
+
+    <br>
 
     <form action="/mobilepesquisapsicologos/" method="GET">
         <div class="col-12">
@@ -17,24 +21,26 @@
     </form>
 
     <br>
+    <br>
 
     {% for psi in resultadoQuery %}
 
     <div class="card" style="max-width: 500px;">
         <div class="row no-gutters">
-            <div class="col-3">
+            <div class="col-3 px-2 mt-2">
                 {% if psi.img %}
-                <img src="/image/{{psi.id}}" alt="Foto de Perfil"
+                    <img src="/image/{{psi.id}}" alt="Foto de Perfil"
                     class="rounded-circle" width="100">
                 {% else %}
                     <img src="/static/semfoto.png" alt="Foto de Perfil"
                     class="rounded-circle" width="100">
                 {% endif %}
             </div>
+
             <div class="col-9">
                 <div class="card-body">
                     <h4 class="card-title">{{psi.name}}</h4>
-                    <p>{{psi.descricao|truncate(50)}}</p>
+                    <p>{{psi.descricao|truncate(80)}}</p>
                     <a href="/mobileverperfil/{{psi.id}}" class="stretched-link"></a>
                 </div>
             </div>

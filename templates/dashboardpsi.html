@@ -4,7 +4,68 @@
 
 <script>
 
-    function codeAddress() {
+    function carregar() {
+        preencherEstados();
+        preencherCidades();
+        preencherInfos();
+    }
+
+    function loadJSON(callback) {   
+
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', '/static/cidades.json', true);
+        
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                callback(xobj.responseText);
+            }
+        };
+        xobj.send(null);  
+    }
+
+    
+    function preencherEstados() {
+        loadJSON(function(response) {
+        // Parse JSON string into object
+            var dados = JSON.parse(response);
+
+            var estado = document.getElementById("estado");
+
+            for (let i = 0; i < dados.estados.length; i++) {
+                estado.innerHTML = estado.innerHTML +  "<option value='" + dados.estados[i].nome + "'>" + dados.estados[i].nome + "</option>"
+            }
+            
+        });
+    }
+
+    function preencherCidades() {
+        loadJSON(function(response) {
+        // Parse JSON string into object
+            var dados = JSON.parse(response);
+
+            var estado = document.getElementById("estado").value;
+            var selectCidade = document.getElementById("cidade");
+
+            var countEstado = 0;
+
+            for (let i = 0; i < dados.estados.length; i++) {
+                if (estado === dados.estados[countEstado].nome) {
+                    continue;
+                }
+                countEstado++;
+            }
+
+            selectCidade.innerHTML = "";
+
+            for (let i = 0; i < dados.estados[countEstado].cidades.length; i++) {
+                selectCidade.innerHTML = selectCidade.innerHTML +  "<option value='" + dados.estados[countEstado].cidades[i] + "'>" + dados.estados[countEstado].cidades[i] + "</option>"
+            }
+            
+        });
+    }
+
+    function preencherInfos() {
         //["name", "email", "virtual", "crp", "descricao", "telefone", "celular", "whatsapp", "estado", "cidade", "endereco", "maps"];
 
         var nome = document.getElementById("name");
@@ -49,18 +110,6 @@
             nome.value = ""
         }
 
-        var nome = document.getElementById("estado");
-        nome.value = "{{ current_user.estado }}";
-        if (nome.value === "None") {
-            nome.value = ""
-        }
-
-        var nome = document.getElementById("cidade");
-        nome.value = "{{ current_user.cidade }}";
-        if (nome.value === "None") {
-            nome.value = ""
-        }
-
         var nome = document.getElementById("endereco");
         nome.value = "{{ current_user.endereco }}";
         if (nome.value === "None") {
@@ -74,7 +123,29 @@
         }
     }
 
-    window.onload = codeAddress;
+    window.onload = carregar;
+    
+    /* É necessário esperar o json carregar
+        para preencher as informações de estado e cidade.
+        Estamos aqui esperando ele carregar
+    */
+    setTimeout(function(){
+        var selectEstado = document.getElementById("estado");
+        selectEstado.value = "{{current_user.estado}}";
+        if (selectEstado.value === "None") {
+            selectEstado.value = "Acre"
+        }
+        preencherCidades();
+    }, 1000);
+
+    setTimeout(function(){
+        var selectCidade = document.getElementById("cidade");
+        selectCidade.value = "{{current_user.cidade}}";
+        if (selectCidade.value === "None") {
+            selectCidade.value = "Acrelândia"
+        }
+    }, 4000);
+
 </script>
 
 {% endblock %}
@@ -109,15 +180,17 @@
                                 <h4>{{ current_user.name }}</h4>
 
                                 <form action="http://localhost:5000/uploadimg/{{current_user.id}}" enctype="multipart/form-data" method="POST"> 
-                                    <input type="file" name="pic" />
-                                    <input type="submit" value="Upload a file"/>
+                                    <div class="row">
+                                        <input type="file" name="pic" />
+                                    </div>
+                                    
+                                    <br>
+
+                                    <div class="row">
+                                        <input class="btn-primary" type="submit" value="Fazer upload"/>
+                                    </div>
+                                    
                                 </form>
-
-                                <button class="btn btn-primary">Alterar Senha</button>
-
-                                <button class="btn btn-primary">Atualizar Plano</button>
-
-                                <button class="btn btn-primary">Atualizar Forma de Pagamento</button>
 
                             </div>
                         </div>
@@ -191,7 +264,7 @@
                                     <h6 class="mb-0">Estado</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input name="estado" type="estado" id="estado" class="form-control" autofocus>
+                                    <select name="estado" onchange="preencherCidades()" id="estado" style="width: 100%; height: 40px;" autofocus></select>
                                 </div>
                             </div>
                             <hr>
@@ -200,7 +273,10 @@
                                     <h6 class="mb-0">Cidade</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
+                                    <!--
                                     <input name="cidade" type="cidade" id="cidade" class="form-control" autofocus>
+                                    -->
+                                    <select name="cidade" id="cidade" style="width: 100%; height: 40px;" autofocus></select>
                                 </div>
                             </div>
                             <hr>

@@ -10,11 +10,11 @@
 
     <br>
 
-    <div class="row no-gutters">
+    <div class="row">
 
-        <div class="col-3">
-            {% if current_user.img %}
-            <img src="/image/{{current_user.id}}" alt="Foto de Perfil"
+        <div class="col-5">
+            {% if psi.img %}
+            <img src="/image/{{psi.id}}" alt="Foto de Perfil"
                 class="rounded-circle" width="150">
             {% else %}
                 <img src="/static/semfoto.png" alt="Foto de Perfil"
@@ -22,7 +22,7 @@
             {% endif %}
         </div>
 
-        <div class="col-9">
+        <div class="col-7">
             <div class="row no-gutters">
                 <h4>{{ psi.name }}</h4>
             </div>
@@ -35,24 +35,26 @@
 
     </div>
 
-    {% if psi.descricao %}
-    <h4>Descrição</h4>
+    <br>
 
-    <p>{{ psi.descricao }}</p>
+    {% if psi.descricao %}
+    <h4 align="justify">Descrição</h4>
+
+    <p align="justify">{{ psi.descricao }}</p>
     {% endif %}
 
-    <h4>Contato:</h4>
+    <h4 align="justify">Contato:</h4>
 
 
     {% if current_user.telefone %}
-    <h5>{{ psi.telefone }}</h5>
+    <h5 align="justify">{{ psi.telefone }}</h5>
     {% endif %}
 
     {% if current_user.celular %}
-    <h5>{{ psi.celular }}</h5>
+    <h5 align="justify">{{ psi.celular }}</h5>
     {% endif %}
 
-    <h5>{{ psi.email }}</h5>
+    <h5 align="justify">{{ psi.email }}</h5>
 
     {% if psi.whatsapp %}
     <a href="https://wa.me/{{ psi.whatsapp }}"
@@ -68,7 +70,7 @@
     {% endif %}
 
     {% if psi.endereco %}
-    <h4>Endereço:</h4>
+    <h4 align="justify">Endereço:</h4>
     <h5>{{ psi.endereco }}</h5>
     {% endif %}
 
@@ -80,7 +82,7 @@
         {% endif %}
     </div>
 
-    <a href="#" onclick="goBack()" type="button" class="btn btn-primary">Voltar para a lista</a>
+    <a href="#" onclick="goBack()" type="button" class="btn btn-primary btn-lg">Voltar para a lista</a>
 
     <h2></h2>
 

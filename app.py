@@ -29,12 +29,11 @@ class User(db.Model, UserMixin):
     plano = db.Column(db.Integer, nullable=False, default=0) # 1, 2, 3 (planos basico, pro, gold, etc...)
     
     # Campos do psicólogo:
-    #virtual = db.Column(db.Boolean, nullable=True)
     img = db.Column(db.Text, unique=True, nullable=True)
     imgname = db.Column(db.Text, nullable=True)
     mimetype = db.Column(db.Text, nullable=True)
 
-    crp = db.Column(db.String(86), nullable=False)
+    crp = db.Column(db.String(86), nullable=True)
     descricao = db.Column(db.String(500), nullable=True)
     telefone = db.Column(db.String(20), nullable=True)
     celular = db.Column(db.String(20), nullable=True)
@@ -89,10 +88,35 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/loginusu/', methods=['GET', 'POST'])
+def loginusu():
+    if request.method == 'POST':
+        email = request.form['email']
+        pwd = request.form['password']
+
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            return redirect(url_for('loginusu'))
+
+        if  not user.verify_password(pwd):
+            return redirect(url_for('loginusu'))
+            
+        login_user(user)
+
+        return render_template('mobile/menu.html')
+
+    return render_template('mobile/login.html')
+
 @app.route('/logout/', methods=['GET', 'POST'])
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/logoutusu/', methods=['GET', 'POST'])
+def logoutusu():
+    logout_user()
+    return render_template('mobile/menu.html')
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -187,21 +211,6 @@ def image(id):
 
     return Response(user.img, mimetype=user.mimetype)
 
-'''
-# Deletando pela chave primária id
-@app.route('/delete/<int:id>')
-def delete(id):
-    # Tentar pegar a task pelo id ou retornar 404
-    task_to_delete = Todo.query.get_or_404(id)
-
-    try:
-        db.session.delete(task_to_delete)
-        db.session.commit()
-        return redirect('/')
-    except:
-        return 'Houve um problema interno ao deletar'
-
-'''
 
 @app.route('/mobile/')
 def mobile():
@@ -231,10 +240,138 @@ def mobilemenu():
 def mobilepsicologos():
 
     if request.method == 'GET':
-        return render_template('mobile/psicologos/pesquisapsicologos.html')
+        # Puxar os estados distintos com cadastros
+        queryEstados = db.session.query(User.estado.distinct())
+        
+        estados = []
+
+        # Pai, me perdoa, eu não sei o que faço!
+
+        acre = []
+        alagoas = []
+        amapa = []
+        amazonas = []
+        bahia = []
+        ceara = []
+        espiritosanto = []
+        goias = []
+        maranhao = []
+        matogrosso = []
+        matogrossodosul = []
+        minasgerais = []
+        para = []
+        paraiba = []
+        parana = []
+        pernambuco = []
+        piaui = []
+        riodejaneiro = []
+        riograndedonorte = []
+        riograndedosul = []
+        rondonia = []
+        roraima = []
+        santacatarina = []
+        saopaulo = []
+        sergipe = []
+        tocantins = []
+        distritofederal = []
+
+        for e in queryEstados.all():
+            estados.append(e[0])
+
+        for estado in estados:
+            # Puxar as cidades com cadastros para o estado
+            queryCidades = db.session.query(User.cidade.distinct()).filter(User.estado.like(estado))
+            for c in queryCidades.all():
+                if (estado == "Acre"):
+                    acre.append(c[0])
+                elif (estado =="Alagoas"):
+                    alagoas.append(c[0])
+                elif (estado == "Amapá"):
+                    amapa.append(c[0])
+                elif (estado == "Amazonas"):
+                    amazonas.append(c[0])
+                elif (estado == "Bahia"):
+                    bahia.append(c[0])
+                elif (estado == "Ceará"):
+                    ceara.append(c[0])
+                elif (estado == "Espírito Santo"):
+                    espiritosanto.append(c[0])
+                elif (estado == "Goiás"):
+                    goias.append(c[0])
+                elif (estado == "Maranhão"):
+                    maranhao.append(c[0])
+                elif (estado == "Mato Grosso"):
+                    matogrosso.append(c[0])
+                elif (estado == "Mato Grosso do Sul"):
+                    matogrossodosul.append(c[0])
+                elif (estado == "Minas Gerais"):
+                    minasgerais.append(c[0])
+                elif (estado == "Pará"):
+                    para.append(c[0])
+                elif (estado == "Paraíba"):
+                    paraiba.append(c[0])
+                elif (estado == "Paraná"):
+                    parana.append(c[0])
+                elif (estado == "Pernambuco"):
+                    pernambuco.append(c[0])
+                elif (estado == "Piauí"):
+                    piaui.append(c[0])
+                elif (estado == "Rio de Janeiro"):
+                    riodejaneiro.append(c[0])
+                elif (estado == "Rio Grande do Norte"):
+                    riograndedonorte.append(c[0])
+                elif (estado == "Rio Grande do Sul"):
+                    riograndedosul.append(c[0])
+                elif (estado == "Rondônia"):
+                    rondonia.append(c[0])
+                elif (estado == "Roraima"):
+                    roraima.append(c[0])
+                elif (estado == "Santa Catarina"):
+                    santacatarina.append(c[0])
+                elif (estado == "São Paulo"):
+                    saopaulo.append(c[0])
+                elif (estado == "Sergipe"):
+                    sergipe.append(c[0])
+                elif (estado == "Tocantins"):
+                    tocantins.append(c[0])
+                elif (estado == "Distrito Fedral"):
+                    distritofederal.append(c[0])
+
+        # Exemplo:
+        #estados = ['São Paulo', 'Rio de Janeiro', 'Bahia']
+        #saopaulo = ['São Paulo', 'Sorocaba', 'Santo André']
+
+        return render_template('mobile/psicologos/pesquisapsicologos.html', estados=estados,
+                                                                            acre=acre,
+                                                                            alagoas=alagoas,
+                                                                            amapa=amapa,
+                                                                            amazonas=amazonas,
+                                                                            bahia=bahia,
+                                                                            ceara=ceara,
+                                                                            espiritosanto=espiritosanto,
+                                                                            goias=goias,
+                                                                            maranhao=maranhao,
+                                                                            matogrosso=matogrosso,
+                                                                            matogrossodosul =matogrossodosul,
+                                                                            minasgerais=minasgerais,
+                                                                            para=para,
+                                                                            paraiba=paraiba,
+                                                                            parana=parana,
+                                                                            pernambuco=pernambuco,
+                                                                            piaui=piaui,
+                                                                            riodejaneiro=riodejaneiro,
+                                                                            riograndedonorte=riograndedonorte,
+                                                                            riograndedosul=riograndedosul,
+                                                                            rondonia=rondonia,
+                                                                            roraima=roraima,
+                                                                            santacatarina=santacatarina,
+                                                                            saopaulo=saopaulo,
+                                                                            sergipe=sergipe,
+                                                                            tocantins=tocantins,
+                                                                            distritofederal=distritofederal)
 
     if request.method == 'POST':
-        estadoSelect = request.form.get('estado')
+        #estadoSelect = request.form.get('estado')
         cidadeSelect = request.form.get('cidade')
 
         resultadoQuery = db.session.query(User).filter_by(cidade=cidadeSelect)
@@ -364,7 +501,136 @@ def pagamentopremium():
 def psicologos():
 
     if request.method == 'GET':
-        return render_template('psicologos/pesquisapsicologos.html')
+        # Puxar os estados distintos com cadastros
+        queryEstados = db.session.query(User.estado.distinct())
+        
+        estados = []
+
+        # Pai, me perdoa, eu não sei o que faço!
+
+        acre = []
+        alagoas = []
+        amapa = []
+        amazonas = []
+        bahia = []
+        ceara = []
+        espiritosanto = []
+        goias = []
+        maranhao = []
+        matogrosso = []
+        matogrossodosul = []
+        minasgerais = []
+        para = []
+        paraiba = []
+        parana = []
+        pernambuco = []
+        piaui = []
+        riodejaneiro = []
+        riograndedonorte = []
+        riograndedosul = []
+        rondonia = []
+        roraima = []
+        santacatarina = []
+        saopaulo = []
+        sergipe = []
+        tocantins = []
+        distritofederal = []
+
+        for e in queryEstados.all():
+            estados.append(e[0])
+
+        for estado in estados:
+            # Puxar as cidades com cadastros para o estado
+            queryCidades = db.session.query(User.cidade.distinct()).filter(User.estado.like(estado))
+            for c in queryCidades.all():
+                if (estado == "Acre"):
+                    acre.append(c[0])
+                elif (estado =="Alagoas"):
+                    alagoas.append(c[0])
+                elif (estado == "Amapá"):
+                    amapa.append(c[0])
+                elif (estado == "Amazonas"):
+                    amazonas.append(c[0])
+                elif (estado == "Bahia"):
+                    bahia.append(c[0])
+                elif (estado == "Ceará"):
+                    ceara.append(c[0])
+                elif (estado == "Espírito Santo"):
+                    espiritosanto.append(c[0])
+                elif (estado == "Goiás"):
+                    goias.append(c[0])
+                elif (estado == "Maranhão"):
+                    maranhao.append(c[0])
+                elif (estado == "Mato Grosso"):
+                    matogrosso.append(c[0])
+                elif (estado == "Mato Grosso do Sul"):
+                    matogrossodosul.append(c[0])
+                elif (estado == "Minas Gerais"):
+                    minasgerais.append(c[0])
+                elif (estado == "Pará"):
+                    para.append(c[0])
+                elif (estado == "Paraíba"):
+                    paraiba.append(c[0])
+                elif (estado == "Paraná"):
+                    parana.append(c[0])
+                elif (estado == "Pernambuco"):
+                    pernambuco.append(c[0])
+                elif (estado == "Piauí"):
+                    piaui.append(c[0])
+                elif (estado == "Rio de Janeiro"):
+                    riodejaneiro.append(c[0])
+                elif (estado == "Rio Grande do Norte"):
+                    riograndedonorte.append(c[0])
+                elif (estado == "Rio Grande do Sul"):
+                    riograndedosul.append(c[0])
+                elif (estado == "Rondônia"):
+                    rondonia.append(c[0])
+                elif (estado == "Roraima"):
+                    roraima.append(c[0])
+                elif (estado == "Santa Catarina"):
+                    santacatarina.append(c[0])
+                elif (estado == "São Paulo"):
+                    saopaulo.append(c[0])
+                elif (estado == "Sergipe"):
+                    sergipe.append(c[0])
+                elif (estado == "Tocantins"):
+                    tocantins.append(c[0])
+                elif (estado == "Distrito Fedral"):
+                    distritofederal.append(c[0])
+
+        # Exemplo:
+        #estados = ['São Paulo', 'Rio de Janeiro', 'Bahia']
+        #saopaulo = ['São Paulo', 'Sorocaba', 'Santo André']
+
+        return render_template('psicologos/pesquisapsicologos.html', estados=estados,
+                                                                            acre=acre,
+                                                                            alagoas=alagoas,
+                                                                            amapa=amapa,
+                                                                            amazonas=amazonas,
+                                                                            bahia=bahia,
+                                                                            ceara=ceara,
+                                                                            espiritosanto=espiritosanto,
+                                                                            goias=goias,
+                                                                            maranhao=maranhao,
+                                                                            matogrosso=matogrosso,
+                                                                            matogrossodosul =matogrossodosul,
+                                                                            minasgerais=minasgerais,
+                                                                            para=para,
+                                                                            paraiba=paraiba,
+                                                                            parana=parana,
+                                                                            pernambuco=pernambuco,
+                                                                            piaui=piaui,
+                                                                            riodejaneiro=riodejaneiro,
+                                                                            riograndedonorte=riograndedonorte,
+                                                                            riograndedosul=riograndedosul,
+                                                                            rondonia=rondonia,
+                                                                            roraima=roraima,
+                                                                            santacatarina=santacatarina,
+                                                                            saopaulo=saopaulo,
+                                                                            sergipe=sergipe,
+                                                                            tocantins=tocantins,
+                                                                            distritofederal=distritofederal)
+        #return render_template('psicologos/pesquisapsicologos.html')
 
     if request.method == 'POST':
         estadoSelect = request.form.get('estado')

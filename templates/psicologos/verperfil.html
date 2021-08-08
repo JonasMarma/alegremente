@@ -12,8 +12,8 @@
     <div class="row no-gutters">
 
         <div class="col-3">
-            {% if current_user.img %}
-            <img src="/image/{{current_user.id}}" alt="Foto de Perfil"
+            {% if psi.img %}
+            <img src="/image/{{psi.id}}" alt="Foto de Perfil"
                 class="rounded-circle" width="150">
             {% else %}
                 <img src="/static/semfoto.png" alt="Foto de Perfil"
@@ -23,35 +23,41 @@
 
         <div class="col-9">
             <div class="row no-gutters">
-                <h4>{{ psi.name }}</h4>
+                <h2>{{ psi.name }}</h2>
             </div>
 
+            <br>
+
             <div class="row no-gutters">
-                <h6>CRP: {{ psi.crp }}</h6>
+                <h4>CRP: {{ psi.crp }}</h4>
             </div>
 
         </div>
 
     </div>
 
+    <br>
+
     {% if psi.descricao %}
-    <h4>Descrição</h4>
+    <h4 align="justify">Descrição</h4>
 
-    <p>{{ psi.descricao }}</p>
+    <p align="justify">{{ psi.descricao }}</p>
     {% endif %}
 
-    <h4>Contato:</h4>
+    <br>
+
+    <h4 align="justify">Contato:</h4>
 
 
-    {% if current_user.telefone %}
-    <h5>{{ psi.telefone }}</h5>
+    {% if psi.telefone %}
+    <h5 align="justify">{{ psi.telefone }}</h5>
     {% endif %}
 
-    {% if current_user.celular %}
-    <h5>{{ psi.celular }}</h5>
+    {% if psi.celular %}
+    <h5 align="justify">{{ psi.celular }}</h5>
     {% endif %}
 
-    <h5>{{ psi.email }}</h5>
+    <h5 align="justify">{{ psi.email }}</h5>
 
     {% if psi.whatsapp %}
     <a href="https://wa.me/{{ psi.whatsapp }}"
@@ -79,7 +85,9 @@
         {% endif %}
     </div>
 
-    <a href="#" onclick="goBack()" type="button" class="btn btn-primary">Voltar para a lista</a>
+    <a href="#" onclick="goBack()" type="button" class="btn btn-primary btn-lg">Voltar para a lista</a>
+
+    <br>
 
     <h2></h2>
 

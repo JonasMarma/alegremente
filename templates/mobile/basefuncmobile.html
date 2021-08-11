@@ -33,13 +33,73 @@
         <div class="modal-content">
             
             <div class="modal-body">
-                <img class="img-fluid" src="/static/logo-grande.png" alt="Banner">
+                <img class="img-fluid" src="https://i.imgur.com/WwySyBd.png" alt="Banner">
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <a type="button" class="btn btn-warning" href="/premium/">Não mostrar mais</a>
-                <a type="button" class="btn btn-success" href="/mobilepesquisapsicologos/">Ver psicólogos</a>
+                <a type="button" class="btn btn-success" href="https://www.google.com/" target="blank">Conhecer</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal de parceiro -->
+<div class="modal fade" id="modalparceiro2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <img class="img-fluid" src="https://i.imgur.com/rWsdxPD.png" alt="Banner">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <a type="button" class="btn btn-warning" href="/premium/">Não mostrar mais</a>
+                <a type="button" class="btn btn-success" href="https://www.google.com/" target="blank">Conhecer</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal de parceiro -->
+<div class="modal fade" id="modalparceiro3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <img class="img-fluid" src="https://i.imgur.com/jOQ3y7m.png" alt="Banner">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <a type="button" class="btn btn-warning" href="/premium/">Não mostrar mais</a>
+                <a type="button" class="btn btn-success" href="https://www.google.com/" target="blank">Conhecer</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal de parceiro -->
+<div class="modal fade" id="modalparceiro4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <img class="img-fluid" src="https://i.imgur.com/weA0Zl1.png" alt="Banner">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <a type="button" class="btn btn-warning" href="/premium/">Não mostrar mais</a>
+                <a type="button" class="btn btn-success" href="https://www.google.com/" target="blank">Conhecer</a>
             </div>
 
         </div>
@@ -55,9 +115,9 @@
     $(document).ready(function(){
         r = Math.random();
 
-        if (r > 0.5) {
+        if (r > 0.2) {
 
-            const banners = ["#modalpsi", "#modalparceiro1"];
+            const banners = ["#modalpsi", "#modalparceiro1", "#modalparceiro2", "#modalparceiro3", "#modalparceiro4"];
 
             const random = Math.floor(Math.random() * banners.length);
 
